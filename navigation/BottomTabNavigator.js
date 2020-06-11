@@ -5,6 +5,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import NewsScreen from '../screens/NewsScreen';
+import CompanyNavigator from './CompanyNavigator';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -39,6 +40,14 @@ export default function BottomTabNavigator({ navigation, route }) {
         options={{
           title: 'News',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-paper" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Company"
+        component={CompanyNavigator}
+        options={{
+          title: 'Company',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-business" />,
         }}
       />
     </BottomTab.Navigator>
