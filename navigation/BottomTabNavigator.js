@@ -1,11 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
+import { useDispatch } from 'react-redux';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import NewsScreen from '../screens/NewsScreen';
 import CompanyNavigator from './CompanyNavigator';
+
+import { loadCompanies } from "../actions/index";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -15,6 +18,11 @@ export default function BottomTabNavigator({ navigation, route }) {
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(loadCompanies());
+  }, [])
 
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>

@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, FlatList, Button } from 'react-native'
+import { useSelector } from 'react-redux';
 
 function ListItem({ title, navigation }) {
   return (
@@ -12,7 +12,6 @@ function ListItem({ title, navigation }) {
 
 export default function ListScreen({ navigation }) {
   const companies = useSelector(state => state.companies);
-
   return (
     <SafeAreaView>
       <FlatList
