@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { SafeAreaView, FlatList, Button } from 'react-native'
 
 function ListItem({ title, navigation }) {
@@ -10,53 +11,8 @@ function ListItem({ title, navigation }) {
 }
 
 export default function ListScreen({ navigation }) {
-  const companies = [
-    {
-        "description": "AGILENT TECHNOLOGIES INC",
-        "displaySymbol": "A",
-        "symbol": "A"
-    },
-    {
-        "description": "ALCOA CORP",
-        "displaySymbol": "AA",
-        "symbol": "AA"
-    },
-    {
-        "description": "PERTH MINT PHYSICAL GOLD ETF",
-        "displaySymbol": "AAAU",
-        "symbol": "AAAU"
-    },
-    {
-        "description": "ATA CREATIVITY GLOBAL - ADR",
-        "displaySymbol": "AACG",
-        "symbol": "AACG"
-    },
-    {
-        "description": "ADVISORSHARES DORSEY WRIGHT",
-        "displaySymbol": "AADR",
-        "symbol": "AADR"
-    },
-    {
-        "description": "AMERICAN AIRLINES GROUP INC",
-        "displaySymbol": "AAL",
-        "symbol": "AAL"
-    },
-    {
-        "description": "ALTISOURCE ASSET MANAGEMENT",
-        "displaySymbol": "AAMC",
-        "symbol": "AAMC"
-    },
-    {
-        "description": "ATLANTIC AMERICAN CORP",
-        "displaySymbol": "AAME",
-        "symbol": "AAME"
-    },
-    {
-        "description": "AARON'S INC",
-        "displaySymbol": "AAN",
-        "symbol": "AAN"
-    },
-  ];
+  const companies = useSelector(state => state.companies);
+
   return (
     <SafeAreaView>
       <FlatList
