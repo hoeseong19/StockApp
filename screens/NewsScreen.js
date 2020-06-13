@@ -12,7 +12,7 @@ function wait(timeout) {
 
 const NewsImg = styled.Image`
   border-radius: 10px;
-  flex: 0.3
+  flex: 0.3;
   margin: 10px;
 `;
 const HeadLine = styled.Text`
@@ -24,6 +24,7 @@ const RightView = styled.View`
   flex: 0.7;
   flex-direction: column;
   justify-content: center;
+  margin-right: 10px;
 `;
 const Card = styled.View`
   display: flex;

@@ -17,3 +17,9 @@ export function loadCompanies() {
     }) 
   }
 }
+
+export function setCompany(symbol) {
+  return (dispatch) => {
+    dispatch({type: "SET_COMPANY", payload: symbol});
+  }
+}

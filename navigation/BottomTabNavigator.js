@@ -72,5 +72,7 @@ function getHeaderTitle(route) {
       return 'Links to learn more';
     case 'News':
       return 'News';
+    case 'Markets':
+      return 'Markets';
   }
 }
