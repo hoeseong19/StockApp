@@ -1,18 +1,18 @@
 import React from "react"
 import { enableScreens } from 'react-native-screens';
-import { createNativeStackNavigator } from 'react-native-screens/native-stack';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-import ListScreen from "../screens/ListScreen";
+import SummaryScreen from "../screens/SummaryScreen";
 import DetailsScreen from "../screens/DetailsScreen";
 
 enableScreens();
-const Stack = createNativeStackNavigator();
+const Tab = createMaterialTopTabNavigator();
 
 export default function CompanyNavigator() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="List" component={ListScreen} />
-      <Stack.Screen name="Details" component={DetailsScreen} />
-    </Stack.Navigator>
+    <Tab.Navigator>
+      <Tab.Screen name="Summary" component={SummaryScreen} />
+      <Tab.Screen name="Details" component={DetailsScreen} />
+    </Tab.Navigator>
   );
 }

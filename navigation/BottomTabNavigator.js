@@ -6,7 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import NewsScreen from '../screens/NewsScreen';
-import CompanyNavigator from './CompanyNavigator';
+import MarketsNavigator from './MarketsNavigator';
 
 import { loadCompanies } from "../actions/index";
 
@@ -51,11 +51,11 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Company"
-        component={CompanyNavigator}
+        name="Markets"
+        component={MarketsNavigator}
         options={{
-          title: 'Company',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="ios-business" />,
+          title: 'Markets',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-trending-up" />,
         }}
       />
     </BottomTab.Navigator>

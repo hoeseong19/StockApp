@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, FlatList, Button, RefreshControl, Text, Linking  } from 'react-native'
+import { SafeAreaView, FlatList, Button, RefreshControl, Text, Linking  } from 'react-native'
 
 import Axios from "axios"
 import styled from 'styled-components';
@@ -33,7 +33,7 @@ const Card = styled.View`
   border-radius: 10px;
 `;
 function Item({ headline, image, datetime, url, source }) {
-  const publishedAt = `${new Date(datetime * 1000).toISOString().slice(0,19)}`;
+  const publishedAt = `${new Date(datetime * 1000).toISOString().slice(0,16)}`;
   
   return (
     <Card>

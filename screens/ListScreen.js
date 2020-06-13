@@ -6,7 +6,7 @@ function ListItem({ title, navigation }) {
   return (
     <Button 
       title={title}
-      onPress={() => { navigation.navigate('Details', {company: title}); }}/>
+      onPress={() => { navigation.navigate('Company', {company: title}); }}/>
   );
 }
 
