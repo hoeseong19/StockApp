@@ -3,6 +3,7 @@ import { SafeAreaView, FlatList, Button, RefreshControl, Text, Linking  } from '
 
 import Axios from "axios"
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 function wait(timeout) {
   return new Promise(resolve => {
@@ -65,6 +66,8 @@ function Item({ headline, image, datetime, url, source }) {
 }
 
 export default function NewsScreen() {
+  const BASE_URL = useSelector(state => state.BASE_URL);
+  const API_KEY = useSelector(state => state.API_KEY);
   const [refreshing, setRefreshing] = React.useState(false);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -76,9 +79,9 @@ export default function NewsScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await Axios.get("https://finnhub.io/api/v1/news", {
+      const result = await Axios.get(`${BASE_URL}/news`, {
         params: {
-          token: "", 
+          token: API_KEY, 
           category: "general", 
         }
       }).then((res) => { return res })

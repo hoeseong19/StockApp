@@ -8,7 +8,7 @@ import LinksScreen from '../screens/LinksScreen';
 import NewsScreen from '../screens/NewsScreen';
 import MarketsNavigator from './MarketsNavigator';
 
-import { loadCompanies } from "../actions/index";
+import { loadUsEx, loadIndices } from "../actions/index";
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
@@ -21,7 +21,8 @@ export default function BottomTabNavigator({ navigation, route }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(loadCompanies());
+    dispatch(loadUsEx());
+    dispatch(loadIndices());
   }, [])
 
   return (

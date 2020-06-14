@@ -16,16 +16,17 @@ const Body = styled.SafeAreaView`
   margin: 5px 20px;
 `;
 export default function SummaryScreen() {
-  const baseUrl = useSelector(state => state.baseUrl); 
+  const BASE_URL = useSelector(state => state.BASE_URL); 
+  const API_KEY = useSelector(state => state.API_KEY); 
   const symbol = useSelector(state => state.selected);
 
   const [ quote, setQuote ] = useState({ "c": 0, "h": 0, "l": 0, "o": 0, "pc": 0, "t": 0 });
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await Axios.get(`${baseUrl}/quote`, {
+      const result = await Axios.get(`${BASE_URL}/quote`, {
         params: {
-          token: "", 
+          token: API_KEY, 
           symbol: symbol
         }
       }).then((res) => { return res })

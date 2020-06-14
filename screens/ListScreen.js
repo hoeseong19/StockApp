@@ -1,11 +1,15 @@
 import React from 'react';
-import { SafeAreaView, FlatList, Button, Text } from 'react-native'
+import { SafeAreaView, FlatList, Button, Text, SectionList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 
 import { setCompany } from '../actions';
 
-const Header = styled.Text`
+const SectionHeader = styled.Text`
+  font-size: 30px;
+  font-weight: bold;
+`;
+const Symbol = styled.Text`
   font-size: 20px;
   font-weight: bold;
 `;
@@ -31,7 +35,7 @@ function ListItem({ symbol, description, navigation }) {
   return (
     <Card>
       <LeftView>
-        <Header>{symbol}</Header>
+        <Symbol>{symbol}</Symbol>
         <Text>{description}</Text>
       </LeftView>
       <Button 
@@ -43,13 +47,18 @@ function ListItem({ symbol, description, navigation }) {
 }
 
 export default function ListScreen({ navigation }) {
-  const companies = useSelector(state => state.companies);
+  const companies = useSelector(state => state.symbols.us);
+  const indices = useSelector(state => state.symbols.indices);
+
   return (
     <SafeAreaView>
-      <FlatList
-        data={companies}
+      <SectionList
+        sections={[{ title: "Companies", data: companies }, { title: "Indices", data: indices }]}
+        keyExtractor={(item) => `${item.symbol}` }
         renderItem={({ item }) => <ListItem symbol={item.symbol} description={item.description} navigation={navigation}/>}
-        keyExtractor={item => `${item.symbol}`}
+        renderSectionHeader={({ section: { title } }) => (
+          <SectionHeader>{title}</SectionHeader>
+        )}
       />
     </SafeAreaView>
   );
