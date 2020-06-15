@@ -4,7 +4,8 @@ const initialState = {
 	BASE_URL: "https://finnhub.io/api/v1", 
 	API_KEY: "", 
 	symbols: {},  
-	selected: undefined
+	watchlist: [], 
+	selected: {}
 };
 
 const reducer = produce((state, action) => {
@@ -17,6 +18,19 @@ const reducer = produce((state, action) => {
 		break;
 		case "SET_COMPANY":
 			state.selected = action.payload;
+			break;
+		case "ADD_COMPANY":
+			state.watchlist.push(action.payload);
+			break;
+		case "REMOVE_COMPANY":
+			console.log(state.watchlist);
+			const idx = state.watchlist.findIndex((item) => item.toString() === action.payload.toString());
+			if(idx > -1) {
+				state.watchlist.splice(idx, 1);
+			}
+			
+			console.log(idx, action.payload);
+			console.log(state.watchlist);
 			break;
 		default:
 			break;

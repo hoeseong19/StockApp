@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, SectionList, TouchableOpacity } from 'react-native'
+import { Text, SectionList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 import Axios from "axios";
@@ -15,17 +15,18 @@ const Card = styled.View`
   width: 100px;
   height: 70px;
   margin: 5px;
+  padding-left: 5px;
   border-radius: 10px;
   background: #FFF;
 `;
-function IndexItem({ symbol, description }) {
+function IndexItem({ item }) {
   const BASE_URL = useSelector(state => state.BASE_URL);
   const API_KEY = useSelector(state => state.API_KEY);
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const { symbol, description } = item;
   const [ quote, setQuote ] = useState({ "c": 0, "h": 0, "l": 0, "o": 0, "pc": 0, "t": 0 });
-  const [ change, setChange ] = useState(0);
   const [ p_change, setP_change ] = useState(0);
   const [ indicator, setIndicator ] = useState("");
 
@@ -39,25 +40,26 @@ function IndexItem({ symbol, description }) {
       }).then((res) => { return res })
       .catch(() => { return [] })
  
-      await setQuote(result.data);
+      setQuote(result.data);
       
       console.log(symbol);
     };
  
     fetchData();
+  }, []);
 
-    setChange((quote.c - quote.pc).toFixed(2));
-    setP_change(((change/quote.pc) * 100).toFixed(2));
-    if(change>=0) {
+  useEffect(() => {
+    setP_change((((quote.c - quote.pc)/quote.pc) * 100).toFixed(2));
+    if(p_change>=0) {
       setIndicator("#00F");
     } else {
       setIndicator("#F00");
     }
-  }, []);
+  })
   
   return (
     <TouchableOpacity
-      onPress={() => { navigation.navigate('Company', { symbol: symbol }); dispatch(setCompany(symbol)); }}>
+      onPress={() => { navigation.navigate('Company', { symbol: symbol }); dispatch(setCompany(item)); }}>
       <Card>
         <Symbol numberOfLines={1}>{description}</Symbol>
         <Text>{quote.c}</Text>
@@ -79,7 +81,7 @@ export default function Indices({ navigation }) {
         { data: eurIndices }, 
         { data: asiaIndices }, ]}
       keyExtractor={(item) => `${item.symbol}` }
-      renderItem={({ item }) => <IndexItem symbol={item.symbol} description={item.description} navigation={navigation}/>}
+      renderItem={({ item }) => <IndexItem item={item} navigation={navigation}/>}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
     />

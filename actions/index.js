@@ -1,7 +1,7 @@
 import Axios from "axios"
 
 const BASE_URL = "https://finnhub.io/api/v1";
-const API_KEY = "";
+const API_KEY = "bq6uatnrh5r8h5n0k7n0";
 
 export function loadUsEx() {
   const SYMBOLS_URL = `${BASE_URL}/stock/symbol`;
@@ -33,8 +33,19 @@ export function loadIndices() {
   }
 }
 
-export function setCompany(symbol) {
+export function setCompany(item) {
   return (dispatch) => {
-    dispatch({type: "SET_COMPANY", payload: symbol});
+    dispatch({type: "SET_COMPANY", payload: item});
+  }
+}
+
+export function addCompany(item) {
+  return (dispatch) => {
+    dispatch({type: "ADD_COMPANY", payload: item});
+  }
+}
+export function removeCompany(item) {
+  return (dispatch) => {
+    dispatch({type: "REMOVE_COMPANY", payload: item});
   }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SafeAreaView, Text } from 'react-native'
+import { SafeAreaView, Text, Button } from 'react-native'
 import Axios from "axios";
 import styled from "styled-components";
 
@@ -15,10 +15,10 @@ const Header = styled.Text`
 const Body = styled.SafeAreaView`
   margin: 5px 20px;
 `;
-export default function SummaryScreen() {
+export default function SummaryScreen({ navigation, route }) {
   const BASE_URL = useSelector(state => state.BASE_URL); 
   const API_KEY = useSelector(state => state.API_KEY); 
-  const symbol = useSelector(state => state.selected);
+  const selected = useSelector(state => state.selected);
 
   const [ quote, setQuote ] = useState({ "c": 0, "h": 0, "l": 0, "o": 0, "pc": 0, "t": 0 });
 
@@ -27,7 +27,7 @@ export default function SummaryScreen() {
       const result = await Axios.get(`${BASE_URL}/quote`, {
         params: {
           token: API_KEY, 
-          symbol: symbol
+          symbol: selected.symbol
         }
       }).then((res) => { return res })
       .catch(() => { return [] })
@@ -41,7 +41,8 @@ export default function SummaryScreen() {
 
   return (
     <Body>
-      <Header>{symbol}</Header>
+      <Header>{selected.symbol}</Header>
+      <Text>{selected.description}</Text>
       <Price>{quote.c}</Price>
     </Body>
   );
