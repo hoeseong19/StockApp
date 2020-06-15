@@ -1,9 +1,11 @@
 import React from 'react';
-import { SafeAreaView, FlatList, Button, Text, SectionList } from 'react-native'
+import { SafeAreaView, Button, Text, SectionList } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux';
 import styled from "styled-components";
 
 import { setCompany } from '../actions';
+import Indices from '../components/Indices';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SectionHeader = styled.Text`
   font-size: 30px;
@@ -41,25 +43,28 @@ function ListItem({ symbol, description, navigation }) {
       <Button 
         style={{flex: 0.3}}
         title="See Details"
-        onPress={() => { navigation.navigate('Company'); dispatch(setCompany(symbol)); }}/>
+        onPress={() => { navigation.navigate('Company', { symbol: symbol }); dispatch(setCompany(symbol)); }}/>
     </Card>
   );
 }
 
 export default function ListScreen({ navigation }) {
   const companies = useSelector(state => state.symbols.us);
-  const indices = useSelector(state => state.symbols.indices);
 
   return (
     <SafeAreaView>
-      <SectionList
-        sections={[{ title: "Companies", data: companies }, { title: "Indices", data: indices }]}
-        keyExtractor={(item) => `${item.symbol}` }
-        renderItem={({ item }) => <ListItem symbol={item.symbol} description={item.description} navigation={navigation}/>}
-        renderSectionHeader={({ section: { title } }) => (
-          <SectionHeader>{title}</SectionHeader>
-        )}
-      />
+      <ScrollView>
+        <Indices navigation={navigation}/>
+        <SectionList
+          sections={[
+            { title: "Companies", data: companies }]}
+          keyExtractor={(item) => `${item.symbol}` }
+          renderItem={({ item }) => <ListItem symbol={item.symbol} description={item.description} navigation={navigation}/>}
+          renderSectionHeader={({ section: { title } }) => (
+            <SectionHeader>{title}</SectionHeader>
+          )}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 }

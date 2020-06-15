@@ -27,7 +27,7 @@ export function loadIndices() {
         token: API_KEY
       }
     }).then((response) => {
-      console.log("get US symbols data!!!");
+      console.log("get indices symbols data!!!");
       dispatch({type: "LOAD_INDICES", payload: response.data});
     }) 
   }
