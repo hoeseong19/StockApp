@@ -1,7 +1,7 @@
 import Axios from "axios"
 
 const BASE_URL = "https://finnhub.io/api/v1";
-const API_KEY = "bq6uatnrh5r8h5n0k7n0";
+const API_KEY = "";
 
 export function loadUsEx() {
   const SYMBOLS_URL = `${BASE_URL}/stock/symbol`;
