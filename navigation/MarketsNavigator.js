@@ -49,7 +49,8 @@ export default function MarketsNavigator({ route }) {
               setIsEnabled(previousState => !previousState);
             }}
             value={isEnabled}/>
-        ), })} />
+        ), })} 
+        initialParams={({ route }) => ({ title: route.params.type})}/>
     </Stack.Navigator>
   );
 }

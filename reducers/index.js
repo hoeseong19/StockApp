@@ -2,7 +2,7 @@ import produce from "immer"
 
 const initialState = {
 	BASE_URL: "https://finnhub.io/api/v1", 
-	API_KEY: "", 
+	API_KEY: "bq6uatnrh5r8h5n0k7n0", 
 	symbols: {},  
 	watchlist: [], 
 	selected: {}

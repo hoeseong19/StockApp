@@ -44,7 +44,7 @@ function ListItem({ item, navigation }) {
       <Button 
         style={{flex: 0.3}}
         title="See Details"
-        onPress={() => { navigation.navigate('Company', { symbol: symbol }); dispatch(setCompany(item)); }}/>
+        onPress={() => { navigation.navigate('Company', { symbol: symbol, type: "Company" }); dispatch(setCompany(item)); }}/>
     </Card>
   );
 }

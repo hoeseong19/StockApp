@@ -8,11 +8,12 @@ import DetailsScreen from "../screens/DetailsScreen";
 enableScreens();
 const Tab = createMaterialTopTabNavigator();
 
-export default function CompanyNavigator() {
+export default function CompanyNavigator({route}) {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Summary" component={SummaryScreen} />
-      <Tab.Screen name="Details" component={DetailsScreen} />
+      <Tab.Screen name="Summary" component={SummaryScreen} initialParams={{ type: route.params.type }} />
+
+      {(route.params.type === "Company") && <Tab.Screen name="Details" component={DetailsScreen} />}
     </Tab.Navigator>
   );
 }

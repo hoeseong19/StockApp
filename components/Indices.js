@@ -59,7 +59,7 @@ function IndexItem({ item }) {
   
   return (
     <TouchableOpacity
-      onPress={() => { navigation.navigate('Company', { symbol: symbol }); dispatch(setCompany(item)); }}>
+      onPress={() => { navigation.navigate('Company', { symbol: symbol, type: "indices" }); dispatch(setCompany(item)); }}>
       <Card>
         <Symbol numberOfLines={1}>{description}</Symbol>
         <Text>{quote.c}</Text>

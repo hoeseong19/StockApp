@@ -1,57 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { SafeAreaView, Text, Button, FlatList, ScrollView, View } from 'react-native'
+import { Text, ScrollView, View } from 'react-native'
 import Axios from "axios";
 import styled from "styled-components";
-import _ from "lodash";
 
+import Stats from "../components/Stats";
+
+const Col = styled.View`
+  flex: 0.5;
+`;
+const Row = styled.View`
+  flex-direction: row;
+`;
 const Desc = styled.Text`
   font-weight: bold
 `;
-const InlineBody = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
+const Box = styled.View`
+  backgroundColor: #FFF;
+  borderRadius: 10px;
+  margin-bottom: 10px;
 `;
-function StatsItem({ item }) {
-  const {title, value} = item;
-
+function KeyStats({ quote }) {
   return (
-    <InlineBody>
-      <Desc>{title}</Desc>
-      <Text>{value}</Text>
-    </InlineBody>
-  )
-}
-function Stats({ BASE_URL, API_KEY, symbol}) {
-  const [ Metric, setMetric ] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await Axios.get(`${BASE_URL}/stock/metric`, {
-        params: {
-          token: API_KEY, 
-          symbol: symbol, 
-          metric: "price"
-        }
-      }).then((res) => { return res.data.metric })
-      .catch(() => { return [] })
-      
-      setMetric(_.flatMap(result, (value, key) => { return { title: key, value: value } }));
-      console.log("Metric");
-    };
- 
-    fetchData();
-  }, []);
-
-  return (
-    <View>
-      <Header>Statistics</Header>
-      <FlatList
-        data={Metric}
-        renderItem={({ item }) => <StatsItem item={item}/>}
-        keyExtractor={item => item.title}
-      />
-    </View>
+    <Box>
+      <Header>Key Statistics</Header>
+      <Row>
+        <Col>
+          <Desc>Prev Close</Desc>
+          <Text>{quote.pc}</Text>
+        </Col>
+        <Col>
+          <Desc>Open</Desc>
+          <Text>{quote.o}</Text>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Desc>Low</Desc>
+          <Text>{quote.l}</Text>
+        </Col>
+        <Col>
+          <Desc>High</Desc>
+          <Text>{quote.h}</Text>
+        </Col>
+      </Row>
+    </Box>
   )
 }
 
@@ -64,9 +57,9 @@ const Header = styled.Text`
   font-weight: bold;
 `;
 const Body = styled.SafeAreaView`
-  margin: 5px 20px;
+  margin: 5px;
 `;
-export default function SummaryScreen() {
+export default function SummaryScreen({ route }) {
   const BASE_URL = useSelector(state => state.BASE_URL); 
   const API_KEY = useSelector(state => state.API_KEY); 
   const selected = useSelector(state => state.selected);
@@ -106,7 +99,8 @@ export default function SummaryScreen() {
         <Header>{selected.symbol}</Header>
         <Text>{selected.description}</Text>
         <Price style={{color: indicator}}>{quote.c.toFixed(2)}({p_change}%)</Price>
-        <Stats BASE_URL={BASE_URL} API_KEY={API_KEY} symbol={selected.symbol}/>
+        <KeyStats quote={quote}/>
+        {(route.params.type === "Company") && <Stats BASE_URL={BASE_URL} API_KEY={API_KEY} symbol={selected.symbol}/>}
       </ScrollView>
     </Body>
   );
